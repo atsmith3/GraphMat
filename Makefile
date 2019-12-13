@@ -43,13 +43,13 @@ $(PROG): $(OBJS)
 
 clean:
 	rm -f $(CPP_DEPS)
-	rm -f $(C_DEPS)
+#	rm -f $(C_DEPS)
 	rm -f $(OBJS)
 	rm -f $(PROG)
 
 tidy:
 	rm -f $(CPP_DEPS)
-	rm -f $(C_DEPS)
+#	rm -f $(C_DEPS)
 	rm -f $(OBJS)
 
 -include $(CPP_DEPS) $(C_DEPS)

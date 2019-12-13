@@ -1,6 +1,6 @@
 // Andrew Smith
 //
-// Graph class implementation
+// Graph class
 //
 // 121219
 
@@ -12,31 +12,30 @@
 #include <vector>
 #include <list>
 
-template<class v_t, class e_t>
-class Graph<v_t, e_t> {
-private:
-  uint64_t numNodes;
-  uint64_t numNeighbors;
-  std::vector<uint64_t> node_ptr;
-  std::vector<uint64_t> node_neighbors;
-
-
-  std::vector<v_t> vertex_property;
-  std::vector<e_t> edge_property;
-
+template<class e_t>
+class Edge {
 public:
-  Graph();
-  ~Graph();
+  e_t property;
+  uint64_t dst;
 
-  // Init
-  bool import();
-
-  // Setters & Getters 
-  v_t getVertexProperty(uint64_t v_id);
-  void setVertexProperty(uint64_t v_id, uint64_t val);
-
-
-
-
-
+  Edge(e_t init, uint64_t dst);
 };
+
+template<class v_t, class e_t>
+class Vertex {
+public:
+  v_t property;
+  std::list<Edge<e_t>> edges;
+};
+
+template<class v_t, class e_t>
+class Graph {
+public:
+  std::vector<Vertex<v_t, e_t>> vertex;
+
+  void import(std::string fname, v_t vertex_init, e_t edge_init);
+};
+
+#include "graph.tcc"
+
+#endif // GRAPH_H
