@@ -34,6 +34,7 @@ public:
   std::vector<Vertex<v_t, e_t>> vertex;
 
   void import(std::string fname, v_t vertex_init, e_t edge_init);
+  void print();
 };
 
 #include "graph.tcc"

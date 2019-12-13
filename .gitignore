@@ -6,3 +6,4 @@ graph
 *.d
 *.txt
 *.mtx
+input/
