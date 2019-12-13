@@ -1,0 +1,8 @@
+graph
+*.o
+*.swp
+*.log
+*.out
+*.d
+*.txt
+*.mtx
