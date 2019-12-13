@@ -1,4 +1,4 @@
-INCPATH = -I.
+INCPATH = -I. -I./apps
 CPPFLAGS += -std=c++17 -Wall -Wfatal-errors -Werror $(INCPATH)
 CFLAGS += -Wall $(INCPATH)
 
@@ -29,8 +29,8 @@ all: $(PROG)
 debug: CPPFLAGS += -O0 -g -DVERBOSE -DDEBUG
 debug : $(PROG)
 
-verbose: CPPFLAGS += -O3 -DVERBOSE -DDEBUG
-verbose: $(PROG)
+performance: CPPFLAGS += -O3
+performance: $(PROG)
 
 $(PROG): $(OBJS)
 	 $(CXX) $^ $(LPATH) $(LFLAGS) -o $@

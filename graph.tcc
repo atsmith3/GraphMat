@@ -4,6 +4,8 @@
 //
 // 121219
 
+#include <fstream>
+#include <iostream>
 #include <string>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/trim.hpp>
@@ -26,7 +28,8 @@ void Graph<v_t, e_t>::import(std::string fname, v_t vertex_init, e_t edge_init) 
   uint64_t i = 0;
   uint64_t progress = 0;
   uint64_t src, dst;
-  uint64_t rows, columns, entries;
+  uint64_t rows, columns;
+  uint64_t entries = 0;
   std::string object, format, field, symmetry;
 
   while(!g.eof()) {
