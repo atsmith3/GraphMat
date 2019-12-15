@@ -17,8 +17,9 @@ class Edge {
 public:
   e_t property;
   uint64_t dst;
+  uint64_t src;
 
-  Edge(e_t init, uint64_t dst);
+  Edge(e_t init, uint64_t src, uint64_t dst);
 };
 
 template<class v_t, class e_t>
@@ -26,6 +27,7 @@ class Vertex {
 public:
   v_t property;
   std::list<Edge<e_t>> edges;
+  std::list<Edge<e_t>> in_edges;
 };
 
 template<class v_t, class e_t>
@@ -33,7 +35,7 @@ class Graph {
 public:
   std::vector<Vertex<v_t, e_t>> vertex;
 
-  void import(std::string fname, v_t vertex_init, e_t edge_init);
+  void import(std::string fname);
   void print();
 };
 

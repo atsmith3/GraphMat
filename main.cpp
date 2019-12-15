@@ -12,7 +12,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "cc.h"
+#include "pr.h"
 #include "graph.h"
 
 
@@ -24,11 +24,11 @@ int main(int argc, char** argv) {
   curr = new std::queue<uint64_t>;
   next = new std::queue<uint64_t>;
 
-  graph.import(argv[1], VERTEX_INIT, EDGE_INIT);
+  graph.import(argv[1]);
 
-  initialize_cc(graph, curr);
+  initialize_pr(graph, curr);
 
-  run_cc(graph, curr, next);
+  run_pr(graph, curr, next);
 
   delete curr;
   delete next;

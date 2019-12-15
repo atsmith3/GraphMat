@@ -14,13 +14,14 @@
 #include <stdexcept>
 
 template<class e_t>
-Edge<e_t>::Edge(e_t init, uint64_t dst) {
+Edge<e_t>::Edge(e_t init, uint64_t src, uint64_t dst) {
   this->property = init;
+  this->src = src;
   this->dst = dst;
 }
 
 template<class v_t, class e_t>
-void Graph<v_t, e_t>::import(std::string fname, v_t vertex_init, e_t edge_init) {
+void Graph<v_t, e_t>::import(std::string fname) {
   std::fstream g;
   g.open(fname, std::ios::in);
   std::string line;
@@ -74,11 +75,13 @@ void Graph<v_t, e_t>::import(std::string fname, v_t vertex_init, e_t edge_init) 
           dst = std::stoull(tokens[1]) - 1;
           if(field == "pattern") {
             if(symmetry == "symmetric") {
-              vertex[dst].property = vertex_init;
-              vertex[dst].edges.push_back(Edge<e_t>(edge_init, src));
+              vertex[dst].property = v_t();
+              vertex[dst].edges.push_back(Edge<e_t>(e_t(), src, dst));
+              vertex[src].in_edges.push_back(Edge<e_t>(e_t(), src, dst));
             }
-            vertex[src].property = vertex_init;
-            vertex[src].edges.push_back(Edge<e_t>(edge_init, dst));
+            vertex[src].property = v_t();
+            vertex[src].edges.push_back(Edge<e_t>(e_t(), src, dst));
+            vertex[dst].in_edges.push_back(Edge<e_t>(e_t(), src, dst));
             progress++;
           }
           if(field == "real") {
