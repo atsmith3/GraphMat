@@ -26,8 +26,8 @@ template<class v_t, class e_t>
 class Vertex {
 public:
   v_t property;
-  std::list<Edge<e_t>> edges;
-  std::list<Edge<e_t>> in_edges;
+  std::vector<Edge<e_t>> edges;
+  std::vector<Edge<e_t>> in_edges;
 };
 
 template<class v_t, class e_t>

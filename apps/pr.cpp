@@ -46,8 +46,9 @@ void run_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, std::que
       curr->pop();
 
       double sum = 0.0;
+      uint64_t neighbor = 0;
       for(auto it = graph.vertex[src].in_edges.begin(); it != graph.vertex[src].in_edges.end(); it++) {
-        uint64_t neighbor = it->src;
+        neighbor = it->src;
         if(graph.vertex[neighbor].property.nodeDelta > 0.0 && neighbor != src) {
           sum += graph.vertex[neighbor].property.nodeDelta;
         }

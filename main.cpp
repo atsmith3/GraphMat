@@ -26,9 +26,9 @@ int main(int argc, char** argv) {
 
   graph.import(argv[1]);
 
-  initialize_pr(graph, curr);
+  initialize_pr(graph, curr, 0.85, 1.0e-3);
 
-  run_pr(graph, curr, next);
+  run_pr(graph, curr, next, 0.85, 1.0e-3, 1000);
 
   delete curr;
   delete next;

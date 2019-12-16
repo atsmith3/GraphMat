@@ -23,6 +23,6 @@ void initialize_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, d
 
 void do_every_iteration_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr);
 
-void run_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, std::queue<uint64_t>* next, double alpha, double tolerance);
+void run_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, std::queue<uint64_t>* next, double alpha, double tolerance, uint64_t max_iter);
 
 #endif // PR_H
