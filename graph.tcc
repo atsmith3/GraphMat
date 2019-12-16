@@ -84,11 +84,29 @@ void Graph<v_t, e_t>::import(std::string fname) {
             vertex[dst].in_edges.push_back(Edge<e_t>(e_t(), src, dst));
             progress++;
           }
-          if(field == "real") {
-            
+          else if(field == "real") {
+            double r_weight = std::stod(tokens[2]);
+            if(symmetry == "symmetric") {
+              vertex[dst].property = v_t();
+              vertex[dst].edges.push_back(Edge<e_t>(r_weight, src, dst));
+              vertex[src].in_edges.push_back(Edge<e_t>(r_weight, src, dst));
+            }
+            vertex[src].property = v_t();
+            vertex[src].edges.push_back(Edge<e_t>(r_weight, src, dst));
+            vertex[dst].in_edges.push_back(Edge<e_t>(r_weight, src, dst));
+            progress++;
           }
-          if(field == "integer") {
-            
+          else if(field == "integer") {
+            int i_weight = std::stoi(tokens[2]);
+            if(symmetry == "symmetric") {
+              vertex[dst].property = v_t();
+              vertex[dst].edges.push_back(Edge<e_t>(i_weight, src, dst));
+              vertex[src].in_edges.push_back(Edge<e_t>(i_weight, src, dst));
+            }
+            vertex[src].property = v_t();
+            vertex[src].edges.push_back(Edge<e_t>(i_weight, src, dst));
+            vertex[dst].in_edges.push_back(Edge<e_t>(i_weight, src, dst));
+            progress++;
           }
         }
         i++;
@@ -113,4 +131,16 @@ void Graph<v_t, e_t>::print() {
     }
     std::cout << "\n";
   }
+}
+
+template<class v_t, class e_t>
+void Graph<v_t, e_t>::serialize() {
+
+
+}
+
+template<class v_t, class e_t>
+void Graph<v_t, e_t>::deserialize() {
+
+
 }

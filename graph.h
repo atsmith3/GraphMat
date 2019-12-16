@@ -33,9 +33,12 @@ public:
 template<class v_t, class e_t>
 class Graph {
 public:
+  std::string graph_name;
   std::vector<Vertex<v_t, e_t>> vertex;
 
   void import(std::string fname);
+  void serialize();
+  void deserialize();
   void print();
 };
 
