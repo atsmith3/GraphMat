@@ -12,7 +12,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "pr.h"
+#include "sssp.h"
 #include "graph.h"
 
 
@@ -26,9 +26,14 @@ int main(int argc, char** argv) {
 
   graph.import(argv[1]);
 
-  initialize_pr(graph, curr, 0.85, 1.0e-3);
+  initialize_sssp(graph, curr);
+  run_sssp(graph, curr, next, 100);
 
-  run_pr(graph, curr, next, 0.85, 1.0e-3, 1000);
+  //initialize_cc(graph, curr);
+  //run_cc(graph, curr, next, 100);
+
+  //initialize_pr(graph, curr, 0.85, 1.0e-3);
+  //run_pr(graph, curr, next, 0.85, 1.0e-3, 1000);
 
   graph.writeVertexProperty();
 

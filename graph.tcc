@@ -83,19 +83,37 @@ void Graph<v_t, e_t>::import(std::string fname) {
           if(field == "pattern") {
             if(symmetry == "symmetric") {
               vertex[dst].property = v_t();
-              vertex[dst].edges.push_back(Edge<e_t>(e_t(), src, dst));
-              vertex[src].in_edges.push_back(Edge<e_t>(e_t(), src, dst));
+              vertex[dst].edges.push_back(Edge<e_t>(1, src, dst));
+              vertex[src].in_edges.push_back(Edge<e_t>(1, src, dst));
             }
             vertex[src].property = v_t();
-            vertex[src].edges.push_back(Edge<e_t>(e_t(), src, dst));
-            vertex[dst].in_edges.push_back(Edge<e_t>(e_t(), src, dst));
+            vertex[src].edges.push_back(Edge<e_t>(1, src, dst));
+            vertex[dst].in_edges.push_back(Edge<e_t>(1, src, dst));
             progress++;
           }
-          if(field == "real") {
-            
+          else if(field == "real") {
+            double r_weight = std::stod(tokens[2]);
+            if(symmetry == "symmetric") {
+              vertex[dst].property = v_t();
+              vertex[dst].edges.push_back(Edge<e_t>(r_weight, src, dst));
+              vertex[src].in_edges.push_back(Edge<e_t>(r_weight, src, dst));
+            }
+            vertex[src].property = v_t();
+            vertex[src].edges.push_back(Edge<e_t>(r_weight, src, dst));
+            vertex[dst].in_edges.push_back(Edge<e_t>(r_weight, src, dst));
+            progress++;
           }
-          if(field == "integer") {
-            
+          else if(field == "integer") {
+            int i_weight = std::stoi(tokens[2]);
+            if(symmetry == "symmetric") {
+              vertex[dst].property = v_t();
+              vertex[dst].edges.push_back(Edge<e_t>(i_weight, src, dst));
+              vertex[src].in_edges.push_back(Edge<e_t>(i_weight, src, dst));
+            }
+            vertex[src].property = v_t();
+            vertex[src].edges.push_back(Edge<e_t>(i_weight, src, dst));
+            vertex[dst].in_edges.push_back(Edge<e_t>(i_weight, src, dst));
+            progress++;
           }
         }
         i++;
@@ -121,4 +139,16 @@ void Graph<v_t, e_t>::writeVertexProperty() {
   }
 
   out.close();
+}
+
+template<class v_t, class e_t>
+void Graph<v_t, e_t>::serialize() {
+
+
+}
+
+template<class v_t, class e_t>
+void Graph<v_t, e_t>::deserialize() {
+
+
 }

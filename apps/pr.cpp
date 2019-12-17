@@ -24,9 +24,12 @@ void do_every_iteration_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>*
 
 void run_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, std::queue<uint64_t>* next, double alpha, double tolerance, uint64_t max_iter) {
   std::list<uint64_t>* residual = new std::list<uint64_t>;
+  bool changed = true;
 
-  for(int iteration = 0; !curr->empty(); iteration++) {
+  for(uint64_t iteration = 0; iteration < max_iter && changed; iteration++) {
     std::cout << "Iteration: " << iteration << " Process Queue Size: " << curr->size() << " elements\n";
+    changed = false;
+
     // Update Page Rank:
     while(!curr->empty()) {
       // Dequeue:
@@ -41,6 +44,7 @@ void run_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, std::que
         double outDegree = (double)graph.vertex[src].edges.size();
         if(outDegree > 0) {
           graph.vertex[src].property.delta = oldResidual*alpha/outDegree;
+          changed = true;
         }
       }
       next->push(src);
@@ -48,7 +52,7 @@ void run_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, std::que
     // Calculate Residual
     while(!next->empty()) {
       uint64_t src = next->front();
-      curr->pop();
+      next->pop();
 
       double sum = 0.0;
       uint64_t neighbor = 0;
@@ -59,7 +63,7 @@ void run_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, std::que
         }
       }
       if(sum > 0.0) {
-        graph.vertex[neighbor].property.delta = sum;
+        graph.vertex[src].property.residual = sum;
       }
       curr->push(src);
     }

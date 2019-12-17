@@ -21,6 +21,6 @@ void initialize_cc(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr);
 
 void do_every_iteration_cc(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr);
 
-void run_cc(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, std::queue<uint64_t>* next);
+void run_cc(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, std::queue<uint64_t>* next, uint64_t max_iter);
 
 #endif // CC_H
