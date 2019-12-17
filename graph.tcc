@@ -21,6 +21,13 @@ Edge<e_t>::Edge(e_t init, uint64_t src, uint64_t dst) {
 }
 
 template<class v_t, class e_t>
+std::ostream& operator<<(std::ostream& os, const Vertex<v_t, e_t>& obj) {
+  os << obj.property;
+  return os;
+}
+
+
+template<class v_t, class e_t>
 void Graph<v_t, e_t>::import(std::string fname) {
   std::fstream g;
   g.open(fname, std::ios::in);
@@ -105,12 +112,13 @@ void Graph<v_t, e_t>::import(std::string fname) {
 }
 
 template<class v_t, class e_t>
-void Graph<v_t, e_t>::print() {
-  for(auto v_it = vertex.begin(); v_it != vertex.end(); v_it++) {
-    std::cout << "ID: " << v_it - vertex.begin() << " Property: " << v_it->property << " NumEdges: " << v_it->edges.size() << " \n  ";
-    for(auto e_it = v_it->edges.begin(); e_it != v_it->edges.end(); e_it++) {
-      std::cout << " (" << e_it->property << ", " << e_it->dst << "),";
-    }
-    std::cout << "\n";
+void Graph<v_t, e_t>::writeVertexProperty() {
+  std::fstream out;
+  out.open("vertexProperty.out", std::ios::out);
+
+  for(auto it = vertex.begin(); it != vertex.end(); it++) {
+    out << *it << "\n";
   }
+
+  out.close();
 }

@@ -30,6 +30,8 @@ int main(int argc, char** argv) {
 
   run_pr(graph, curr, next, 0.85, 1.0e-3, 1000);
 
+  graph.writeVertexProperty();
+
   delete curr;
   delete next;
 

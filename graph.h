@@ -28,6 +28,9 @@ public:
   v_t property;
   std::vector<Edge<e_t>> edges;
   std::vector<Edge<e_t>> in_edges;
+
+  template<class T, class U>
+  friend std::ostream& operator<<(std::ostream& os, const Vertex<T, U>& obj);
 };
 
 template<class v_t, class e_t>
@@ -36,7 +39,7 @@ public:
   std::vector<Vertex<v_t, e_t>> vertex;
 
   void import(std::string fname);
-  void print();
+  void writeVertexProperty();
 };
 
 #include "graph.tcc"

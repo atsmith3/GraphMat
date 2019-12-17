@@ -4,11 +4,16 @@
 
 #include "pr.h"
 
+std::ostream& operator<<(std::ostream& os, const vertex_t& obj) {
+  os << obj.pageRank;
+  return os;
+}
+
 void initialize_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, double alpha, double tolerance) {
   for(uint64_t i = 0; i < graph.vertex.size(); i++) {
-    graph.vertex[i].property.nodeDelta = 0.0;
-    graph.vertex[i].property.nodeResidual = (1-alpha);
-    graph.vertex[i].property.nodePageRank = 0.0;
+    graph.vertex[i].property.delta = 0.0;
+    graph.vertex[i].property.residual = (1-alpha);
+    graph.vertex[i].property.pageRank = 0.0;
     curr->push(i);
   }
 }
@@ -28,14 +33,14 @@ void run_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, std::que
       uint64_t src = curr->front();
       curr->pop();
 
-      graph.vertex[src].property.nodeDelta = 0;
-      if(graph.vertex[src].property.nodeResidual > tolerance) {
-        double oldResidual = graph.vertex[src].property.nodeResidual;
-        graph.vertex[src].property.nodePageRank += oldResidual;
-        graph.vertex[src].property.nodeResidual = 0.0;
+      graph.vertex[src].property.delta = 0;
+      if(graph.vertex[src].property.residual > tolerance) {
+        double oldResidual = graph.vertex[src].property.residual;
+        graph.vertex[src].property.pageRank += oldResidual;
+        graph.vertex[src].property.residual = 0.0;
         double outDegree = (double)graph.vertex[src].edges.size();
         if(outDegree > 0) {
-          graph.vertex[src].property.nodeDelta = oldResidual*alpha/outDegree;
+          graph.vertex[src].property.delta = oldResidual*alpha/outDegree;
         }
       }
       next->push(src);
@@ -49,12 +54,12 @@ void run_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, std::que
       uint64_t neighbor = 0;
       for(auto it = graph.vertex[src].in_edges.begin(); it != graph.vertex[src].in_edges.end(); it++) {
         neighbor = it->src;
-        if(graph.vertex[neighbor].property.nodeDelta > 0.0 && neighbor != src) {
-          sum += graph.vertex[neighbor].property.nodeDelta;
+        if(graph.vertex[neighbor].property.delta > 0.0 && neighbor != src) {
+          sum += graph.vertex[neighbor].property.delta;
         }
       }
       if(sum > 0.0) {
-        graph.vertex[neighbor].property.nodeDelta = sum;
+        graph.vertex[neighbor].property.delta = sum;
       }
       curr->push(src);
     }

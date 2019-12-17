@@ -13,11 +13,13 @@
 
 typedef double edge_t;
 
-typedef struct {
-  double nodeDelta;
-  double nodeResidual;
-  double nodePageRank;
-} vertex_t;
+class vertex_t {
+public:
+  double delta;
+  double residual;
+  double pageRank;
+  friend std::ostream& operator<<(std::ostream& os, const vertex_t& obj);
+};
 
 void initialize_pr(Graph<vertex_t, edge_t>& graph, std::queue<uint64_t>* curr, double alpha, double tolerance);
 
